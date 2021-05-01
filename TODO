@@ -1,0 +1,49 @@
+TODO:
+Mazen:
+1-	IMEM (2^16 cell * 8-bit)
+2-	DMEM (2^16 cell * 8-bit)
+3-	Comparator (0 if A == B, 1 otherwise)
+	subtract -> or -> 1, 0
+4-	reverse
+
+Mayar:
+1-	RegFile (8 * 16-bit)
+2-	extender (6-bit -> 16-bit) (0 = u, 1 = s)
+
+------------------------------
+
+Project Components:
+
+Forwarding Unit
+
+IF:
+PC reg (16-bit)
+Inc (PC + 2) (16-bit)
+IMEM (2 * 2^12 cell * 8-bit)
+
+IF/ID = PC, IR
+
+ID:
+extender (6-bit -> 16-bit) (0 = u, 1 = s)
+Adder (PC + sign_ext(imm6) << 2)
+RegFile (8 * 16-bit)
+Comparator (0 if A == B, 1 otherwise)
+subtract -> or -> 1, 0
+reverse
+Control Unit
+Hazard Detection
+
+ID/EX: Control, Rs, Rt, Rd, immediate
+
+EX:
+ALU
+
+EX/MEM: Control, ALU_res, Rt (value), Rt/Rd (address)
+
+MEM:
+DMEM (2^16 cell * 8-bit)
+
+MEM/WB: Control, D_out, ALU_res, Destination
+
+WB:
+
